@@ -23,7 +23,7 @@ class MockTestTypeOrmConnectionService {
 		public readonly usersRepository: Repository<NestJsUserEntity>
 	) {}
 
-	public getDefaultConnection(): Connection {
+	public get getDefaultConnection(): Connection {
 		return getConnection();
 	}
 }
@@ -78,6 +78,15 @@ describe('App E2E', () => {
 		it('defaultConnection should be defined', () => {
 			expect(mockTestTypeOrmConnectionService.defaultConnection).toBeDefined();
 			expect(mockTestTypeOrmConnectionService.defaultConnection?.isConnected).toBeDefined();
+		});
+
+		it('usersRepository should be defined', () => {
+			expect(mockTestTypeOrmConnectionService.usersRepository).toBeDefined();
+		});
+
+		it('getDefaultConnection should return the default connection', () => {
+			expect(mockTestTypeOrmConnectionService.getDefaultConnection).toBeDefined();
+			expect(mockTestTypeOrmConnectionService.getDefaultConnection?.isConnected).toBeDefined();
 		});
 	});
 });
