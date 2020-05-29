@@ -1,9 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('nestjs-auth_users', {
+@Entity('nestjs-auth_refresh_tokens', {
 	synchronize: true,
 })
-export class NestJsUserEntity {
+export class NestJsRefreshTokenEntity {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
@@ -11,5 +11,5 @@ export class NestJsUserEntity {
 	public username: string;
 
 	@Column()
-	public password: string;
+	public token: string;
 }

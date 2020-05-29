@@ -9,12 +9,12 @@ import { LoginModule } from '@login/login.module';
 import { AppModuleInstantiationOptions } from '@core/interfaces/config-options.interface';
 
 @Module({})
-export class AppModule {
+export class NestJsAuthEmailPasswordModule {
 	public static forRoot(options: AppModuleInstantiationOptions = {
 		jwtSecret: 'super-secret-jwt-secret',
 	}): DynamicModule {
 		return {
-			module: AppModule,
+			module: NestJsAuthEmailPasswordModule,
 			imports: [
 				AuthModule.forRoot(options),
 				UsersModule,

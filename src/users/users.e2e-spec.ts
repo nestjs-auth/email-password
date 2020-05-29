@@ -2,48 +2,32 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-// Utils
-import { startTestingDatabase, stopDockerContainer } from '@test/testing.utils';
-
 // Services
 import { UsersService } from '@users/users.service';
 
 // Modules
-import { AppModule } from '@src/app.module';
+import { NestJsAuthEmailPasswordModule } from '@src/app.module';
 
 // Entities
-import { NestAuthUserEntity } from '@core/entities/user.entity';
+import { NestJsUserEntity } from '@core/entities/user.entity';
 import { getConnection } from 'typeorm';
-
-jest.setTimeout(25000);
 
 describe('Users E2E', () => {
 	let app: INestApplication;
-	let container: { containerId: string, databasePort: number };
 
 	let usersService: UsersService;
 
 	beforeAll(async done => {
-		try {
-			container = await startTestingDatabase();
-		} catch (e) {
-			console.log(e);
-			return;
-		}
-
 		const moduleFixture: TestingModule = await Test.createTestingModule({
 			imports: [
-				AppModule.forRoot(),
+				NestJsAuthEmailPasswordModule.forRoot(),
 				TypeOrmModule.forRoot({
-					type: 'mysql',
-					host: 'localhost',
-					port: container.databasePort,
-					username: 'root',
-					password: 'example',
-					database: 'test',
+					type: 'sqlite',
+					database: 'memory',
 					entities: [
-						NestAuthUserEntity,
+						NestJsUserEntity,
 					],
+					synchronize: true,
 				}),
 			],
 		}).compile();
@@ -58,12 +42,6 @@ describe('Users E2E', () => {
 	});
 
 	afterAll(async () => {
-		try {
-			await stopDockerContainer(container.containerId);
-		} catch (e) {
-			console.log(e);
-		}
-
 		await app.close();
 	});
 
@@ -75,7 +53,7 @@ describe('Users E2E', () => {
 				await getConnection()
 					.createQueryBuilder()
 					.insert()
-					.into(NestAuthUserEntity)
+					.into(NestJsUserEntity)
 					.values([
 						{
 							username,
@@ -85,6 +63,7 @@ describe('Users E2E', () => {
 					.execute();
 			} catch (e) {
 				console.log(e);
+				done(false);
 				return;
 			}
 
@@ -95,6 +74,7 @@ describe('Users E2E', () => {
 
 				done();
 			} catch (e) {
+				done(false);
 				console.log(e);
 			}
 		});

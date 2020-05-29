@@ -5,12 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersService } from './users.service';
 
 // Entities
-import { NestAuthUserEntity } from '@core/entities/user.entity';
+import { NestJsUserEntity } from '@core/entities/user.entity';
 
 @Module({
 	imports: [
 		TypeOrmModule.forFeature([
-			NestAuthUserEntity,
+			NestJsUserEntity,
 		]),
 	],
 	providers: [
