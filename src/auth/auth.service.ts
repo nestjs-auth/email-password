@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+import { uuid4 } from 'uuid';
 
 // Services
 import { UsersService } from '../users/users.service';
@@ -27,13 +28,21 @@ export class AuthService {
 	}
 
 	async login(user: NestAuthUser) {
-		const payload = {
+		const accessToken = {
 			id: user.id,
 			username: user.username,
+			expires: Date.now() + (30 * 60_000), // Auth Tokens live for 30m
+		};
+
+		const refreshToken = {
+			id: user.id,
+			username: user.username,
+			expires: Date.now() + ((60 * 24 * 14) * 60_000), // Refresh tokens live for 14 days
 		};
 
 		return {
-			accessToken: this.jwtService.sign(payload),
+			accessToken: this.jwtService.sign(accessToken),
+			refreshToken: this.jwtService.sign(refreshToken),
 		};
 	}
 }

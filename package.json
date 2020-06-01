@@ -1,5 +1,5 @@
 {
-	"name": "nestjs-jwt-auth",
+	"name": "@nestjs-auth/email-password",
 	"version": "0.0.3",
 	"description": "A plug-and-play auth module for the NestJS framework",
 	"author": "jdtjenkins <github.com/jdtjenkins>",
@@ -42,6 +42,7 @@
 		"@nestjs/jwt": "^6.1.2",
 		"@nestjs/passport": "^6.2.0",
 		"@nestjs/platform-express": "^7.1.0",
+		"@nestjsplus/cookies": "^1.1.1",
 		"@types/bcrypt": "^3.0.0",
 		"@types/passport-http": "^0.3.8",
 		"bcrypt": "^3.0.8",
@@ -53,7 +54,8 @@
 		"reflect-metadata": "^0.1.13",
 		"rimraf": "^3.0.2",
 		"rxjs": "^6.5.4",
-		"typeorm": "^0.2.25"
+		"typeorm": "^0.2.25",
+		"uuid": "^8.1.0"
 	},
 	"devDependencies": {
 		"@nestjs/cli": "^6.14.2",
