@@ -10,7 +10,9 @@ import { NestAuthUser } from '../users/users.interface';
 
 @Injectable()
 export class BasicStrategy extends PassportStrategy(Strategy) {
-	constructor(private readonly authService: AuthService) {
+	constructor(
+		private readonly authService: AuthService,
+	) {
 		super();
 	}
 

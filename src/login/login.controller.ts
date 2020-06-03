@@ -1,10 +1,13 @@
-import { Controller, Request, Response, Post, UseGuards, Headers, HttpCode, Get } from '@nestjs/common';
+import { Controller, Request, Post, UseGuards, Headers, HttpCode, Get, Res } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { AuthService } from '../auth/auth.service';
-import { Cookies } from '@nestjsplus/cookies';
+import { Response } from 'express';
 
 // Interfaces
 import { NestAuthUser } from '../users/users.interface';
+
+// Services
+import { AuthService } from '../auth/auth.service';
+
 
 interface RequestWithUser extends Request {
 	user: NestAuthUser
@@ -20,23 +23,20 @@ export class LoginController {
 	@Post('auth/login')
 	@HttpCode(200)
 	async login(
-		@Headers('authorization') auth: string,
+		@Headers('Authorization') auth: string,
 		@Request() req: RequestWithUser,
-		@Response() res: Response,
-		// @Cookies() cookies: any,
+		@Res() res: Response,
 	) {
-		// const tokens = await this.authService.login(req.user);
+		const tokens = await this.authService.login(req.user);
 
-		//const cookies = res.headers.get('cookies');
+		res.cookie('refreshToken', tokens.refreshToken, {
+			httpOnly: true,
+			expires: new Date(Date.now() + 1_209_600_000), // 14 days
+		})
 
-		return await this.authService.login(req.user);
-	}
-
-	@Get('test')
-	async test(
-		@Cookies() cookies,
-	) {
-		console.log(cookies);
-		return;
+		res.send({
+			accessToken: tokens.accessToken,
+			refresh: new Date(Date.now() + 900_000).getTime(),
+		});
 	}
 }

@@ -4,13 +4,13 @@ import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 import * as request from 'supertest';
 
 // Services
-import { UsersService } from '@users/users.service';
+import { UsersService } from '../users/users.service';
 
 // Modules
-import { NestJsAuthEmailPasswordModule } from '@src/app.module';
+import { NestJsAuthEmailPasswordModule } from '../app.module';
 
 // Entities
-import { NestJsUserEntity } from '@core/entities/user.entity';
+import { NestJsUserEntity } from '../core/entities/user.entity';
 import { Repository } from 'typeorm';
 import { AssertionError } from 'assert';
 

@@ -1,15 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('nestjs-auth_refresh_tokens', {
-	synchronize: true,
-})
+@Entity('nestjs-auth_refresh_tokens')
 export class NestJsRefreshTokenEntity {
 	@PrimaryGeneratedColumn()
 	public id: number;
 
 	@Column()
-	public username: string;
+	public userId: number;
 
 	@Column()
-	public token: string;
+	public refreshToken: string;
 }

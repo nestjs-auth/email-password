@@ -4,13 +4,13 @@ import { TypeOrmModule, InjectConnection, InjectRepository } from '@nestjs/typeo
 import { Connection, getConnection, Repository } from 'typeorm';
 
 // Services
-import { UsersService } from '@users/users.service';
+import { UsersService } from './users/users.service';
 
 // Modules
-import { NestJsAuthEmailPasswordModule } from '@src/app.module';
+import { NestJsAuthEmailPasswordModule } from './src/app.module';
 
 // Entities
-import { NestJsUserEntity } from '@core/entities/user.entity';
+import { NestJsUserEntity } from './core/entities/user.entity';
 
 // Mock Services
 @Injectable()

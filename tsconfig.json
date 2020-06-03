@@ -3,11 +3,11 @@
 		"module": "commonjs",
 		"declaration": true,
 		"removeComments": true,
-
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"target": "es2017",
-		"sourceMap": true,
+		"inlineSourceMap": true,
+		"inlineSources": true,
 		"outDir": "./dist",
 		"baseUrl": "./src",
 		"incremental": true,
@@ -19,10 +19,10 @@
 			"@login/*": ["login/*"],
 			"@test/*": ["../test/*"],
 			"@src/*": ["./*"]
-		},
+		}
 	},
 	"exclude": ["node_modules", "dist"],
 	"include": [
 		"src/**/*"
-	],
+	]
 }

@@ -1,14 +1,11 @@
 {
 	"name": "@nestjs-auth/email-password",
-	"version": "0.0.3",
+	"version": "0.0.51",
 	"description": "A plug-and-play auth module for the NestJS framework",
-	"author": "jdtjenkins <github.com/jdtjenkins>",
+	"author": "jumper <npmjs.com/~jumper>",
 	"license": "MIT",
 	"main": "./dist/index.js",
 	"types": "./dist/",
-	"files": [
-		"./dist/**/*"
-	],
 	"private": false,
 	"repository": {
 		"type": "git",
@@ -19,7 +16,7 @@
 		"build": "nest build",
 		"format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
 		"start": "nest start",
-		"start:dev": "nest start --watch",
+		"start:dev": "npx cross-env NODE_ENV=nestjs-auth-ep_development nest start --watch",
 		"start:debug": "nest start --debug --watch",
 		"start:prod": "node dist/main",
 		"lint": "eslint '{src,apps,libs,test}/**/*.ts' --fix",
@@ -42,7 +39,6 @@
 		"@nestjs/jwt": "^6.1.2",
 		"@nestjs/passport": "^6.2.0",
 		"@nestjs/platform-express": "^7.1.0",
-		"@nestjsplus/cookies": "^1.1.1",
 		"@types/bcrypt": "^3.0.0",
 		"@types/passport-http": "^0.3.8",
 		"bcrypt": "^3.0.8",

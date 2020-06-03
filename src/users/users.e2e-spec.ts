@@ -3,13 +3,13 @@ import { INestApplication } from '@nestjs/common';
 import { TypeOrmModule, getRepositoryToken } from '@nestjs/typeorm';
 
 // Services
-import { UsersService } from '@users/users.service';
+import { UsersService } from './users.service';
 
 // Modules
-import { NestJsAuthEmailPasswordModule } from '@src/app.module';
+import { NestJsAuthEmailPasswordModule } from '../app.module';
 
 // Entities
-import { NestJsUserEntity } from '@core/entities/user.entity';
+import { NestJsUserEntity } from '../core/entities/user.entity';
 import { Repository } from 'typeorm';
 
 describe('Users E2E', () => {

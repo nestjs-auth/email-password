@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { LoginController } from './login.controller';
 
 // Modules
-import { AuthModule } from '@auth/auth.module';
+import { AuthModule } from '../auth/auth.module';
 
 // Service
 import { LoginService } from './login.service';
@@ -13,7 +13,11 @@ import { LoginService } from './login.service';
 	imports: [
 		AuthModule.forRoot(),
 	],
-	controllers: [LoginController],
-	providers: [LoginService]
+	controllers: [
+		LoginController,
+	],
+	providers: [
+		LoginService,
+	]
 })
 export class LoginModule {}

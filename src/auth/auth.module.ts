@@ -5,7 +5,8 @@ import { AuthService } from './auth.service';
 
 // Modules
 import { PassportModule } from '@nestjs/passport';
-import { UsersModule } from '@users/users.module';
+import { UsersModule } from '../users/users.module';
+import { RefreshTokensModule } from '../refresh-tokens/refresh-tokens.module';
 import { JwtModule } from '@nestjs/jwt';
 
 // Strategies
@@ -37,11 +38,14 @@ export class AuthModule {
 			imports: [
 				UsersModule,
 				PassportModule,
+				RefreshTokensModule,
 				JwtModule.register({
 					secret: options.jwtSecret
 				}),
 			],
-			exports: [AuthService],
+			exports: [
+				AuthService
+			],
 		}
 	}
 }

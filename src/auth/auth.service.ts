@@ -5,6 +5,7 @@ import { uuid4 } from 'uuid';
 
 // Services
 import { UsersService } from '../users/users.service';
+import { RefreshTokensService } from '../refresh-tokens/refresh-tokens.service';
 
 // Interfaces
 import { NestAuthUser } from '../users/users.interface';
@@ -13,8 +14,9 @@ import { NestAuthUser } from '../users/users.interface';
 export class AuthService {
 	constructor(
 		private readonly usersService: UsersService,
-		private readonly jwtService: JwtService
-	) { }
+		private readonly jwtService: JwtService,
+		private readonly refreshTokensService: RefreshTokensService,
+	) {}
 
 	public async validateUser(username: string, password: string): Promise<any> {
 		const user = await this.usersService.findOne(username);
@@ -27,22 +29,31 @@ export class AuthService {
 		return null;
 	}
 
-	async login(user: NestAuthUser) {
-		const accessToken = {
+	public async login(user: NestAuthUser): Promise<{
+		accessToken: string,
+		refreshToken: string,
+	}> {
+		const accessToken = this.jwtService.sign({
 			id: user.id,
 			username: user.username,
-			expires: Date.now() + (30 * 60_000), // Auth Tokens live for 30m
-		};
+			expires: Date.now() + 900_00, // Auth Tokens live for 15m
+		});
 
-		const refreshToken = {
+		const refreshToken = this.jwtService.sign({
 			id: user.id,
 			username: user.username,
-			expires: Date.now() + ((60 * 24 * 14) * 60_000), // Refresh tokens live for 14 days
-		};
+			expires: new Date(Date.now() + 1_209_600_000), // Refresh tokens live for 14 days
+		});
+
+		await this.refreshTokensService.deleteRefreshToken({
+			userId: user.id,
+		});
+
+		await this.refreshTokensService.createRefreshToken(refreshToken, user.id);
 
 		return {
-			accessToken: this.jwtService.sign(accessToken),
-			refreshToken: this.jwtService.sign(refreshToken),
+			accessToken,
+			refreshToken,
 		};
 	}
 }
