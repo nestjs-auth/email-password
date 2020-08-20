@@ -41,7 +41,7 @@
 		"@nestjs/platform-express": "^7.1.0",
 		"@types/bcrypt": "^3.0.0",
 		"@types/passport-http": "^0.3.8",
-		"bcrypt": "^3.0.8",
+		"bcrypt": "^5.0.0",
 		"cross-env": "^7.0.2",
 		"mysql": "^2.18.1",
 		"passport": "^0.4.1",
