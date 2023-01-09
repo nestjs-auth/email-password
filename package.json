@@ -36,7 +36,7 @@
 	"dependencies": {
 		"@nestjs/common": "^7.1.0",
 		"@nestjs/core": "^7.1.0",
-		"@nestjs/jwt": "^6.1.2",
+		"@nestjs/jwt": "^10.0.1",
 		"@nestjs/passport": "^6.2.0",
 		"@nestjs/platform-express": "^7.1.0",
 		"@types/bcrypt": "^3.0.0",
